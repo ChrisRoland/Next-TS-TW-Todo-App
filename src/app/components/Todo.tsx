@@ -58,10 +58,10 @@ const Todo = () => {
           onChange={(e) => setTodoName(e.target.value)}
         />
         <button
-          className="p-4 m-4 bg-blue-500 rounded-xl hover:bg-blue-700"
+          className="p-4 m-4 bg-blue-500 rounded-xl text-white font-bold hover:bg-blue-700"
           onClick={addTodos}
         >
-          Add To-do
+          Add To-Do
         </button>
       </div>
       <div className="flex flex-col w-full justify-center items-center">
