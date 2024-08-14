@@ -3,7 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-interface todos {
+export interface todos {
   id: number;
   title: string;
   completed: boolean;
@@ -13,12 +13,12 @@ const Todo = () => {
   const [todos, setTodos] = useState<todos[]>([]);
   const [todoName, setTodoName] = useState<string>("");
 
-  useState (() => {
+  useEffect(() => {
     const todos = localStorage.getItem("todos");
     if (todos) {
-        setTodos(JSON.parse(todos));
+      setTodos(JSON.parse(todos));
     }
-  })
+  }, []);
 
   const addTodos = () => {
     const newTodo = {
@@ -28,26 +28,25 @@ const Todo = () => {
     };
     setTodos([...todos, newTodo]);
     setTodoName("");
-    localStorage.setItem("todos", JSON.stringify([... todos, newTodo]));
+    localStorage.setItem("todos", JSON.stringify([...todos, newTodo]));
   };
 
   const deleteTodo = (id: number) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify([... todos, newTodos]));
+    localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
   const checkTodo = (id: number) => {
     const newTodos = todos.map((t) => {
-        if (t.id === id) {
-            t.completed = !t.completed;
-        }
-        return t;
+      if (t.id === id) {
+        t.completed = !t.completed;
+      }
+      return t;
     });
-    setTodos(newTodos); {
-        localStorage.setItem("todos", JSON.stringify([... todos, newTodos]));
-    }
-  }
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
 
   return (
     <div className="h-full w-full flex justify-center items-center flex-col space-y-10 font-sans">
